@@ -20,13 +20,19 @@ def getWells():
     return api.listWells()
 
 
-@app.route("/getWellTanks")
-def getWellTanks():
+@app.route("/getWellTankReadings")
+def getWellTankReadings():
     wellName = urllib.parse.unquote(request.args.get("wellName"))
     wellId = api.getWellID(wellName)
-    print(wellId)
 
-    return api.getWellTanks(wellId)
+    tankIDs = api.getWellTankIds(wellId)
+
+    tankReadings = []
+
+    for i in tankIDs:
+        tankReadings.append(api.getTankReadings(i))
+
+    return tankReadings
 
 
 if __name__ == "__main__":

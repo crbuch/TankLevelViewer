@@ -17,7 +17,7 @@ $(document).ready(() => {
     });
 
   $("#wellSelect").on("change", (eventData) => {
-    fetch(`/getWellTanks?wellName=${encodeURIComponent(wellSelect.value)}`)
+    fetch(`/getWellTankReadings?wellName=${encodeURIComponent(wellSelect.value)}`)
       .then((res) => res.json())
       .then((wellTanks) => {
         console.log(JSON.stringify(wellTanks));
