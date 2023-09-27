@@ -1,15 +1,19 @@
-from flask import Flask, send_from_directory, render_template
+from flask import Flask, render_template
 from webapi import TankLevelAPI
 import json
 
-app = Flask(__name__)
-
-
 api = TankLevelAPI(30)
 
-@app.route('/static/<path:path>')
-def serve_static(path):
-    return send_from_directory('static', path)
+
+
+app = Flask(__name__, template_folder="./dist/templates", static_folder="./dist/static")
+
+
+
+
+# @app.route('/static/<path:path>')
+# def serve_static(path):
+#     return send_from_directory('static', path)
 
 
 @app.route("/")
