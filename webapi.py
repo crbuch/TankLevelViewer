@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 import random
 
+
+
 class TankLevelAPI:
     def __init__(self, daysSince):
         self.IWELL_AUTH_TOKEN = self.getIWellAccessToken()
@@ -15,6 +17,8 @@ class TankLevelAPI:
 
 
     def getIWellAccessToken(self):
+        if not os.path.exists("./.env"):
+            raise FileNotFoundError(".env file not found")
         load_dotenv()
         client_id = os.getenv('client_id')
         client_secret = os.getenv('client_secret')
@@ -30,13 +34,13 @@ class TankLevelAPI:
         return(requests.post('https://api.iwell.info/v1/oauth2/access-token', headers={"content-type":"application/json"}, json = body).json()['access_token'])
 
 
-    def listWells(self):
+    def listWells(self) -> list:
         return list(self.All_Wells.keys())
     
-    def getWellID(self, wellName):
+    def getWellID(self, wellName:str)->str:
         return self.All_Wells[wellName]
     
-    def getWellTanks(self, wellId):
+    def getWellTanks(self, wellId:str)->dict:
         res = requests.get(f"https://api.iwell.info/v1/wells/{wellId}/tanks?since={self.unix_timestamp}", headers={"Authorization": f"Bearer {self.IWELL_AUTH_TOKEN}"})
         return res.json()
 
