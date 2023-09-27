@@ -25,14 +25,22 @@ def getWellTankReadings():
     wellName = urllib.parse.unquote(request.args.get("wellName"))
     wellId = api.getWellID(wellName)
 
-    tankIDs = api.getWellTankIds(wellId)
+    tankData = api.getWellTankData(wellId)
 
-    tankReadings = []
+    res = []
+    for i in tankData["data"]:
+        res.append({})
+        res[-1]["Type"] = i["type"]
+        res[-1]["Multiplier"] = i["multiplier"]
+        res[-1]["Capacity"] = i["capacity"]
+        res[-1]["Name"] = i["name"]
+        res[-1]["Updated"] = i["updated_at"]
+        res[-1]["Id"] = i["id"]
+        readings = api.getTankReadings(i["id"])["data"]
+        readings.sort(key=lambda x: x["reading_time"])
+        res[-1]["LatestReading"] = readings[-1]
 
-    for i in tankIDs:
-        tankReadings.append(api.getTankReadings(i))
-
-    return tankReadings
+    return res
 
 
 if __name__ == "__main__":

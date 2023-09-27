@@ -16,11 +16,13 @@ $(document).ready(() => {
       }
     });
 
-  $("#wellSelect").on("change", (eventData) => {
-    fetch(`/getWellTankReadings?wellName=${encodeURIComponent(wellSelect.value)}`)
+  $("#wellSelect").on("change", () => {
+    fetch(
+      `/getWellTankReadings?wellName=${encodeURIComponent(wellSelect.value)}`
+    )
       .then((res) => res.json())
       .then((wellTanks) => {
-        console.log(JSON.stringify(wellTanks));
+        console.log(wellTanks);
       });
   });
 });

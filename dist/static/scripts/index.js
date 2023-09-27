@@ -12,11 +12,11 @@ $(document).ready(() => {
             wellSelect.appendChild(el);
         }
     });
-    $("#wellSelect").on("change", (eventData) => {
+    $("#wellSelect").on("change", () => {
         fetch(`/getWellTankReadings?wellName=${encodeURIComponent(wellSelect.value)}`)
             .then((res) => res.json())
             .then((wellTanks) => {
-            console.log(JSON.stringify(wellTanks));
+            console.log(wellTanks);
         });
     });
 });
