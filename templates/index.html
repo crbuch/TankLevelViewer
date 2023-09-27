@@ -12,26 +12,25 @@
 
   <body>
     <header class="doc-header">
-      <h1 class="header-text">Well Levels</h1>
+      <h1 class="header-text">Tank Levels</h1>
     </header>
 
     <div id="selectContainer">
       <select id="wellSelect">
         <option value="">--Select a well--</option>
-
-        <option value="1">test1</option>
-        <option value="2">test2</option>
-        <option value="3">test3</option>
-        <option value="4">test4</option>
-        <option value="5">test5</option>
-        <option value="6">test6</option>
       </select>
     </div>
 
     <div id="graphDisplay">
-      <div class=".wellColumn" style="background-color: coral;">
-        
+      <div class="wellColumn" style="height:80%;background-color: coral">
+
+        <p class="wellColumnText">Well: </p>
+
       </div>
+      <div class="wellColumn" style="height:70%;background-color: #79ff50"></div>
+      <div class="wellColumn" style="height:40%;background-color: #50D0FF"></div>
+      <div class="wellColumn" style="height:60%;background-color: #D750FF"></div>
+
     </div>
   </body>
 

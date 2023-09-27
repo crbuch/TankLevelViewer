@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.19",
+    "@types/select2": "^4.0.59"
+  },
+  "scripts": {
+    "start": "tsc --watch"
+  }
+}

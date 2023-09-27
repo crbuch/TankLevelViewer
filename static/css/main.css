@@ -32,7 +32,7 @@ body {
 
 #graphDisplay {
   background-color: rgba(0, 0, 0, 0.15);
-  width: 80%;
+  width: 80vw;
   height: 500px;
   margin: auto;
 
@@ -41,15 +41,23 @@ body {
     auto-fill,
     minmax(100px, 1fr)
   ); 
+
+  align-items:end;
   grid-gap: 10px; 
   border: 1px solid #ccc;
   padding: 10px;
+  text-align: center;
+  justify-content: center;
 }
 
 .wellColumn{
-  height: 80%;
   text-align: center;
   color: white;
   padding: 5px;
   box-sizing: border-box;
+}
+
+.wellColumnText{
+  color:white;
+  font-weight: 900;
 }
