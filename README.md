@@ -1,5 +1,5 @@
 # Start server
-To bundle project, run "webpack" or "npx webpack". It is already configured for Typescript
+To bundle project, run "npx webpack". It is already configured for Typescript
 
 Next run "pip install -r requirements.txt" to install the prerequisites for the server, then "python server.py" to run the webserver.
 
