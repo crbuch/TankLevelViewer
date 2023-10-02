@@ -1,5 +1,6 @@
-import { GetWellData } from "./Tools.js";
-import { TankDataType } from "./Types.js";
+import { GetWellData, PlotData } from "./Tools";
+import { TankDataType } from "./Types";
+
 
 $(document).ready(() => {
   $("#wellSelect").select2();
@@ -22,6 +23,7 @@ $(document).ready(() => {
   $("#wellSelect").on("change", () => {
     GetWellData(wellSelect.value).then((wellData: TankDataType[]) => {
       console.log(wellData);
+      PlotData(wellData)
     });
   });
 });

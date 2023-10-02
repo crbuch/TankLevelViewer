@@ -49,15 +49,3 @@ body {
   text-align: center;
   justify-content: center;
 }
-
-.wellColumn{
-  text-align: center;
-  color: white;
-  padding: 5px;
-  box-sizing: border-box;
-}
-
-.wellColumnText{
-  color:white;
-  font-weight: 900;
-}
