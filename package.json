@@ -1,8 +1,9 @@
 {
   "dependencies": {
+    "assert": "^2.1.0",
     "node-fetch": "^3.3.2",
     "plotly.js": "^2.26.1",
-    "typescript": "^5.2.2"
+    "stream-browserify": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",
@@ -12,11 +13,20 @@
     "@types/select2": "^4.0.59",
     "@webpack-cli/generators": "^3.0.7",
     "babel-loader": "^9.1.3",
+    "prettier": "^3.0.3",
     "ts-loader": "^9.4.4",
+    "typescript": "^5.2.2",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
   },
   "scripts": {
-    "start": "tsc --watch"
-  }
+    "start": "tsc --watch",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
+  },
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "name": "my-webpack-project"
 }
