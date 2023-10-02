@@ -1,7 +1,7 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require("path");
-const webpack = require('webpack')
+const webpack = require("webpack");
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -10,12 +10,8 @@ const config = {
   output: {
     path: path.resolve(__dirname, "dist/static/scripts"),
   },
+
   plugins: [
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-  ],
-  plugins: [
-    // fix "process is not defined" error:
     new webpack.ProvidePlugin({
       process: "process/browser",
     }),
