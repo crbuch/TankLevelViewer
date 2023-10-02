@@ -38,6 +38,18 @@ def getWellTankReadings():
         res[-1]["Id"] = i["id"]
         readings = api.getTankReadings(i["id"])["data"]
         readings.sort(key=lambda x: x["reading_time"])
+
+        readings[-1] = {
+            "Id":readings[-1]["id"],
+            "previous_top_feet":readings[-1]["previous_top_feet"],
+            "previous_top_inches":readings[-1]["previous_top_inches"],
+            "reading_time":readings[-1]["reading_time"],
+            "top_feet":readings[-1]["top_feet"],
+            "top_inches":readings[-1]["top_inches"],
+            "updated_at":readings[-1]["updated_at"],
+        }
+
+        
         res[-1]["LatestReading"] = readings[-1]
 
     return res

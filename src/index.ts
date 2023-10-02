@@ -1,3 +1,6 @@
+import { GetWellData } from "./Tools";
+import { TankDataType } from "./Types";
+
 $(document).ready(() => {
   $("#wellSelect").select2();
 
@@ -17,12 +20,8 @@ $(document).ready(() => {
     });
 
   $("#wellSelect").on("change", () => {
-    fetch(
-      `/getWellTankReadings?wellName=${encodeURIComponent(wellSelect.value)}`
-    )
-      .then((res) => res.json())
-      .then((wellTanks) => {
-        console.log(wellTanks);
-      });
+    GetWellData(wellSelect.value).then((wellData: TankDataType[]) => {
+      console.log(wellData);
+    });
   });
 });
