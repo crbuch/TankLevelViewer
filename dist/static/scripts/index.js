@@ -1,4 +1,4 @@
-"use strict";
+import { GetWellData } from "./Tools.js";
 $(document).ready(() => {
     $("#wellSelect").select2();
     const wellSelect = document.getElementById("wellSelect");
@@ -13,10 +13,8 @@ $(document).ready(() => {
         }
     });
     $("#wellSelect").on("change", () => {
-        fetch(`/getWellTankReadings?wellName=${encodeURIComponent(wellSelect.value)}`)
-            .then((res) => res.json())
-            .then((wellTanks) => {
-            console.log(wellTanks);
+        GetWellData(wellSelect.value).then((wellData) => {
+            console.log(wellData);
         });
     });
 });

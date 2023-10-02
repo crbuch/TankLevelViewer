@@ -1,5 +1,5 @@
-import { GetWellData } from "./Tools";
-import { TankDataType } from "./Types";
+import { GetWellData } from "./Tools.js";
+import { TankDataType } from "./Types.js";
 
 $(document).ready(() => {
   $("#wellSelect").select2();
