@@ -1,5 +1,5 @@
 # Start server
-To bundle project, run "webpack" or "npx webpack" this will transpile the typescript files automatically.
+To bundle project, run "webpack" or "npx webpack". this is already configured to transpile the typescript files into js.
 
 Next run "pip install -r requirements.txt" to install the prerequisites for the server, then "python server.py" to run the webserver.
 
