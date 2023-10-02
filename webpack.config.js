@@ -16,6 +16,9 @@ const config = {
       process: "process/browser",
     }),
   ],
+
+ 
+
   module: {
     rules: [
       {

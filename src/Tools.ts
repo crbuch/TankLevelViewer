@@ -1,12 +1,13 @@
 import { TankDataType } from "./Types";
-import { Data, newPlot } from "plotly.js";
+/// <reference types="plotly.js" />
+
 
 function PlotData(data: TankDataType[]) {
   const displayElement: HTMLDivElement = document.getElementById(
     "graphDisplay"
   ) as HTMLDivElement;
 
-  const waterTrace: Data = {
+  const waterTrace: Plotly.Data = {
     x: [],
     y: [],
     name: "Water",
@@ -17,7 +18,7 @@ function PlotData(data: TankDataType[]) {
     
   };
 
-  const oilTrace: Data = {
+  const oilTrace: Plotly.Data = {
     x: [],
     y: [],
     name: "Oil",
@@ -33,8 +34,9 @@ function PlotData(data: TankDataType[]) {
       (oilTrace.y as number[]).push(tankdata.LatestReading.top_feet);
     }
   }
-
-  newPlot(displayElement, [waterTrace, oilTrace], { barmode: "group" });
+  
+  // @ts-ignore
+  Plotly.newPlot(displayElement, [waterTrace, oilTrace], { barmode: "group" });
 }
 
 async function GetWellData(wellName: string): Promise<TankDataType[]> {
