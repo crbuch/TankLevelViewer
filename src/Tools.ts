@@ -1,7 +1,6 @@
 import { TankDataType } from "./Types";
 import { Data, newPlot } from "./Plotly";
 
-
 function PlotData(data: TankDataType[], divElement: HTMLDivElement) {
   const waterTrace: Data = {
     x: [],
@@ -33,16 +32,12 @@ function PlotData(data: TankDataType[], divElement: HTMLDivElement) {
     const barrelsFilled = (c - m * h) / m;
     const tankLevel = barrelsFilled / c;
 
-
-
-
-    const dateObject = new Date(tankdata.LatestReading.updated_at*1000);
+    const dateObject = new Date(tankdata.LatestReading.updated_at * 1000);
 
     const month = dateObject.getMonth() + 1;
     const day = dateObject.getDate();
     const year = dateObject.getFullYear();
     const date = month + "/" + day + "/" + year;
-
 
     if (tankdata.Type == "WATER") {
       (waterTrace.x as string[]).push(tankdata.Name);
@@ -55,7 +50,13 @@ function PlotData(data: TankDataType[], divElement: HTMLDivElement) {
     }
   }
 
-  newPlot(divElement, [waterTrace, oilTrace], { barmode: "group" });
+  newPlot(divElement, [waterTrace, oilTrace], {
+    barmode: "group",
+    yaxis: {
+      tickformat: ",.0%",
+      range: [0, 1],
+    },
+  });
 }
 
 async function GetWellData(wellName: string): Promise<TankDataType[]> {
