@@ -1,10 +1,8 @@
 import { GetWellData, PlotData } from "./Tools";
 import { TankDataType } from "./Types";
 
-
-$(document).ready(() => {
+jQuery(() => {
   $("#wellSelect").select2();
-
   const wellSelect: HTMLSelectElement = document.getElementById(
     "wellSelect"
   ) as HTMLSelectElement;
@@ -21,9 +19,21 @@ $(document).ready(() => {
     });
 
   $("#wellSelect").on("change", () => {
+    document.getElementsByClassName("plot-container")[0]?.remove();
+
+    const graphDisplay = document.getElementById(
+      "graphDisplay"
+    ) as HTMLDivElement;
+
+    const loadingIcon = document.getElementById(
+      "loadingIcon"
+    ) as HTMLDivElement;
+    loadingIcon.style.display = "inline-block";
+
     GetWellData(wellSelect.value).then((wellData: TankDataType[]) => {
       console.log(wellData);
-      PlotData(wellData)
+      PlotData(wellData, graphDisplay);
+      loadingIcon.style.display = "none";
     });
   });
 });
