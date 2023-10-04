@@ -41,8 +41,6 @@ def getWellTankReadings():
 
         readings[-1] = {
             "Id":readings[-1]["id"],
-            "previous_top_feet":readings[-1]["previous_top_feet"],
-            "previous_top_inches":readings[-1]["previous_top_inches"],
             "reading_time":readings[-1]["reading_time"],
             "top_feet":readings[-1]["top_feet"],
             "top_inches":readings[-1]["top_inches"],

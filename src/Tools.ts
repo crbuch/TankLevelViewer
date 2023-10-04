@@ -1,22 +1,53 @@
 import { TankDataType } from "./Types";
 import { Data, newPlot } from "./Plotly";
 
-function PlotData(data: TankDataType[], divElement: HTMLDivElement) {
-  const waterTrace: Data = {
-    x: [],
-    y: [],
-    name: "Water",
-    type: "bar",
-    marker: {
-      color: "#0000ff",
-    },
-    text: [],
-  };
+function CalculatePercentageFilled(tankdata: TankDataType): number {
+  const barrelsFilled =
+    (tankdata.Capacity -
+      tankdata.Multiplier *
+        (tankdata.LatestReading.top_feet * 12 +
+          tankdata.LatestReading.top_inches)) /
+    tankdata.Multiplier;
+  return barrelsFilled / tankdata.Capacity;
+}
 
-  const oilTrace: Data = {
+function GetReadingDate(tankdata: TankDataType): string {
+  const dateObject = new Date(tankdata.LatestReading.updated_at * 1000);
+  const month = dateObject.getMonth() + 1;
+  const day = dateObject.getDate();
+  const year = dateObject.getFullYear();
+  return month + "/" + day + "/" + year;
+}
+function CalculateTotalHeightInches(tankdata: TankDataType): number {
+  const topHeight: number =
+    tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches;
+  const topHeightPercentage = 1 - CalculatePercentageFilled(tankdata);
+  return Math.round(topHeight / topHeightPercentage);
+}
+
+function CalculateBaseHeightInches(tankdata: TankDataType): number {
+  return (
+    CalculateTotalHeightInches(tankdata) -
+    (tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches)
+  );
+}
+function CalculateTopHeightInches(tankdata: TankDataType): number {
+  return (
+    tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches
+  );
+}
+
+function InchesToHeightString(inches:number){
+  const feet = Math.floor(inches/12);
+  const inchesLeft = inches%12;
+  return `${feet}' ${inchesLeft}"`
+}
+
+function PlotData(data: TankDataType[], divElement: HTMLDivElement) {
+  const baseTrace: Data = {
     x: [],
     y: [],
-    name: "Oil",
+    name: "Base Height",
     type: "bar",
     marker: {
       color: "#008000",
@@ -24,38 +55,33 @@ function PlotData(data: TankDataType[], divElement: HTMLDivElement) {
     text: [],
   };
 
+  const topTrace: Data = {
+    x: [],
+    y: [],
+    name: "Top Height",
+    type: "bar",
+    marker: {
+      color: "#79ad79",
+    },
+    text: [],
+  };
+
   for (const tankdata of data) {
-    const h: number =
-      tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches;
-    const c = tankdata.Capacity;
-    const m = tankdata.Multiplier;
-    const barrelsFilled = (c - m * h) / m;
-    const tankLevel = barrelsFilled / c;
+    if (tankdata.Type == "OIL") {
+      (baseTrace.x as string[]).push(tankdata.Name);
+      (baseTrace.y as number[]).push(CalculateBaseHeightInches(tankdata)/CalculateTotalHeightInches(tankdata));
+      (baseTrace.text as string[]).push(InchesToHeightString(CalculateBaseHeightInches(tankdata)));
 
-    const dateObject = new Date(tankdata.LatestReading.updated_at * 1000);
+      (topTrace.x as string[]).push(tankdata.Name);
+      (topTrace.y as number[]).push(CalculateTopHeightInches(tankdata)/CalculateTotalHeightInches(tankdata));
+      (topTrace.text as string[]).push(InchesToHeightString(CalculateTopHeightInches(tankdata)));
 
-    const month = dateObject.getMonth() + 1;
-    const day = dateObject.getDate();
-    const year = dateObject.getFullYear();
-    const date = month + "/" + day + "/" + year;
-
-    if (tankdata.Type == "WATER") {
-      (waterTrace.x as string[]).push(tankdata.Name);
-      (waterTrace.y as number[]).push(tankLevel);
-      (waterTrace.text as string[]).push(`Updated at: ${date}`);
-    } else if (tankdata.Type == "OIL") {
-      (oilTrace.x as string[]).push(tankdata.Name);
-      (oilTrace.y as number[]).push(tankLevel);
-      (oilTrace.text as string[]).push(`Updated at: ${date}`);
     }
   }
 
-  newPlot(divElement, [waterTrace, oilTrace], {
-    barmode: "group",
-    yaxis: {
-      tickformat: ",.0%",
-      range: [0, 1],
-    },
+  newPlot(divElement, [baseTrace, topTrace], {
+    barmode: "stack",
+   
   });
 }
 
