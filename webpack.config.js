@@ -17,9 +17,11 @@ const config = {
     }),
   ],
 
+  devtool:false,
  
 
   module: {
+
     rules: [
       {
         test: /\.(ts|tsx)$/i,

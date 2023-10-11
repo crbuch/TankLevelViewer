@@ -1,6 +1,8 @@
 import { TankDataType } from "./Types";
 import { Data, newPlot } from "./Plotly";
 
+const FONT_SIZE = 16;
+
 function CalculatePercentageFilled(tankdata: TankDataType): number {
   const barrelsFilled =
     tankdata.Capacity -
@@ -55,6 +57,9 @@ function PlotHeight(
       color: "#008000",
     },
     text: [],
+    textfont:{
+      size:FONT_SIZE
+    }
   };
   const topTrace: Data = {
     x: [],
@@ -65,6 +70,9 @@ function PlotHeight(
       color: "#79ad79",
     },
     text: [],
+    textfont:{
+      size:FONT_SIZE
+    }
   };
 
   const baseTraceWater: Data = {
@@ -76,6 +84,9 @@ function PlotHeight(
       color: "#0000ff",
     },
     text: [],
+    textfont:{
+      size:FONT_SIZE
+    }
   };
   const topTraceWater: Data = {
     x: [],
@@ -86,6 +97,9 @@ function PlotHeight(
       color: "#8585ff",
     },
     text: [],
+    textfont:{
+      size:FONT_SIZE
+    }
   };
 
   for (const tankdata of data) {
@@ -152,6 +166,9 @@ function PlotPercentage(
       color: "#008000",
     },
     text: [],
+    textfont:{
+      size:FONT_SIZE
+    }
   };
   const waterTrace: Data = {
     x: [],
@@ -162,6 +179,9 @@ function PlotPercentage(
       color: "#0000ff",
     },
     text: [],
+     textfont:{
+      size:FONT_SIZE
+    }
   };
 
   for (const tankdata of data) {
@@ -207,6 +227,9 @@ function PlotLoads(
       color: "#008000",
     },
     text: [],
+    textfont:{
+      size:FONT_SIZE
+    }
   };
   const waterTrace: Data = {
     x: [],
@@ -217,6 +240,9 @@ function PlotLoads(
       color: "#0000ff",
     },
     text: [],
+    textfont:{
+      size:FONT_SIZE
+    }
   };
 
   for (const tankdata of data) {
@@ -241,7 +267,9 @@ function PlotLoads(
     xaxis: {
       type: "category",
       title: "Tank Names",
+  
     },
+    
   });
 }
 
@@ -265,7 +293,6 @@ async function GetWellData(wellName: string): Promise<TankDataType[]> {
     `/getWellTankReadings?wellName=${encodeURIComponent(wellName)}`
   );
   const wellTanks = (await res.json()) as TankDataType[];
-  console.log(wellTanks)
   return wellTanks;
 }
 

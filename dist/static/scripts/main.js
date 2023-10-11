@@ -1,11 +1,3 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -16,7 +8,15 @@
   \***********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   newPlot: () => (/* binding */ newPlot)\n/* harmony export */ });\n/// <reference types=\"plotly.js\" />\n// @ts-ignore\nvar newPlot = Plotly.newPlot;\n\n\n\n//# sourceURL=webpack://my-webpack-project/./src/Plotly.ts?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   newPlot: () => (/* binding */ newPlot)
+/* harmony export */ });
+/// <reference types="plotly.js" />
+// @ts-ignore
+var newPlot = Plotly.newPlot;
+
+
 
 /***/ }),
 
@@ -26,17 +26,299 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   GetWellData: () => (/* binding */ GetWellData),\n/* harmony export */   PlotData: () => (/* binding */ PlotData)\n/* harmony export */ });\n/* harmony import */ var _Plotly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Plotly */ \"./src/Plotly.ts\");\nvar __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\n    return new (P || (P = Promise))(function (resolve, reject) {\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n};\nvar __generator = (undefined && undefined.__generator) || function (thisArg, body) {\n    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;\n    return g = { next: verb(0), \"throw\": verb(1), \"return\": verb(2) }, typeof Symbol === \"function\" && (g[Symbol.iterator] = function() { return this; }), g;\n    function verb(n) { return function (v) { return step([n, v]); }; }\n    function step(op) {\n        if (f) throw new TypeError(\"Generator is already executing.\");\n        while (g && (g = 0, op[0] && (_ = 0)), _) try {\n            if (f = 1, y && (t = op[0] & 2 ? y[\"return\"] : op[0] ? y[\"throw\"] || ((t = y[\"return\"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;\n            if (y = 0, t) op = [op[0] & 2, t.value];\n            switch (op[0]) {\n                case 0: case 1: t = op; break;\n                case 4: _.label++; return { value: op[1], done: false };\n                case 5: _.label++; y = op[1]; op = [0]; continue;\n                case 7: op = _.ops.pop(); _.trys.pop(); continue;\n                default:\n                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }\n                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }\n                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }\n                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }\n                    if (t[2]) _.ops.pop();\n                    _.trys.pop(); continue;\n            }\n            op = body.call(thisArg, _);\n        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }\n        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };\n    }\n};\n\nfunction CalculatePercentageFilled(tankdata) {\n    var barrelsFilled = tankdata.Capacity -\n        tankdata.Multiplier *\n            (tankdata.LatestReading.top_feet * 12 +\n                tankdata.LatestReading.top_inches);\n    return barrelsFilled / tankdata.Capacity;\n}\nfunction CalculateTotalHeightInches(tankdata) {\n    var topHeight = tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches;\n    var topHeightPercentage = 1 - CalculatePercentageFilled(tankdata);\n    return Math.round(topHeight / topHeightPercentage);\n}\nfunction CalculateBaseHeightInches(tankdata) {\n    return (CalculateTotalHeightInches(tankdata) -\n        (tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches));\n}\nfunction CalculateTopHeightInches(tankdata) {\n    return (tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches);\n}\nfunction InchesToHeightString(inches) {\n    var feet = Math.floor(inches / 12);\n    var inchesLeft = inches % 12;\n    if (feet && inches) {\n        return \"\".concat(feet, \"' \").concat(inchesLeft, \"\\\"\");\n    }\n    else if (feet && !inches) {\n        return \"\".concat(feet, \"'\");\n    }\n    else if (!feet && inches) {\n        return \"\".concat(inches, \"\\\"\");\n    }\n}\nfunction PlotHeight(data, divElement, chartName) {\n    var baseTrace = {\n        x: [],\n        y: [],\n        name: \"Base Height Oil\",\n        type: \"bar\",\n        marker: {\n            color: \"#008000\",\n        },\n        text: [],\n    };\n    var topTrace = {\n        x: [],\n        y: [],\n        name: \"Top Height Oil\",\n        type: \"bar\",\n        marker: {\n            color: \"#79ad79\",\n        },\n        text: [],\n    };\n    var baseTraceWater = {\n        x: [],\n        y: [],\n        name: \"Base Height Water\",\n        type: \"bar\",\n        marker: {\n            color: \"#0000ff\",\n        },\n        text: [],\n    };\n    var topTraceWater = {\n        x: [],\n        y: [],\n        name: \"Top Height Water\",\n        type: \"bar\",\n        marker: {\n            color: \"#8585ff\",\n        },\n        text: [],\n    };\n    for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {\n        var tankdata = data_1[_i];\n        if (tankdata.Type == \"OIL\") {\n            baseTrace.x.push(\"\".concat(tankdata.Name));\n            baseTrace.y.push(CalculateBaseHeightInches(tankdata) /\n                CalculateTotalHeightInches(tankdata));\n            baseTrace.text.push(InchesToHeightString(CalculateBaseHeightInches(tankdata)));\n            topTrace.x.push(\"\".concat(tankdata.Name));\n            topTrace.y.push(CalculateTopHeightInches(tankdata) /\n                CalculateTotalHeightInches(tankdata));\n            topTrace.text.push(InchesToHeightString(CalculateTopHeightInches(tankdata)));\n        }\n        else if (tankdata.Type == \"WATER\") {\n            baseTraceWater.x.push(\"\".concat(tankdata.Name));\n            baseTraceWater.y.push(CalculateBaseHeightInches(tankdata) /\n                CalculateTotalHeightInches(tankdata));\n            baseTraceWater.text.push(InchesToHeightString(CalculateBaseHeightInches(tankdata)));\n            topTraceWater.x.push(\"\".concat(tankdata.Name));\n            topTraceWater.y.push(CalculateTopHeightInches(tankdata) /\n                CalculateTotalHeightInches(tankdata));\n            topTraceWater.text.push(InchesToHeightString(CalculateTopHeightInches(tankdata)));\n        }\n    }\n    (0,_Plotly__WEBPACK_IMPORTED_MODULE_0__.newPlot)(divElement, [baseTrace, topTrace, baseTraceWater, topTraceWater], {\n        barmode: \"stack\",\n        title: \"\".concat(chartName, \" Tank Levels\"),\n        xaxis: {\n            type: \"category\",\n            title: \"Tank Names\",\n        },\n    });\n}\nfunction PlotPercentage(data, divElement, chartName) {\n    var oilTrace = {\n        x: [],\n        y: [],\n        name: \"Oil\",\n        type: \"bar\",\n        marker: {\n            color: \"#008000\",\n        },\n        text: [],\n    };\n    var waterTrace = {\n        x: [],\n        y: [],\n        name: \"Water\",\n        type: \"bar\",\n        marker: {\n            color: \"#0000ff\",\n        },\n        text: [],\n    };\n    for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {\n        var tankdata = data_2[_i];\n        if (tankdata.Type == \"OIL\") {\n            oilTrace.x.push(\"\".concat(tankdata.Name));\n            oilTrace.y.push(CalculatePercentageFilled(tankdata));\n            oilTrace.text.push(\"\".concat(Math.round(CalculatePercentageFilled(tankdata) * 100), \"%\"));\n        }\n        else if (tankdata.Type == \"WATER\") {\n            waterTrace.x.push(\"\".concat(tankdata.Name));\n            waterTrace.y.push(CalculatePercentageFilled(tankdata));\n            waterTrace.text.push(\"\".concat(Math.round(CalculatePercentageFilled(tankdata) * 100), \"%\"));\n        }\n    }\n    (0,_Plotly__WEBPACK_IMPORTED_MODULE_0__.newPlot)(divElement, [oilTrace, waterTrace], {\n        title: \"\".concat(chartName, \" Tank Percentages\"),\n        yaxis: {\n            range: [0, 1],\n            tickformat: \".0%\",\n        },\n        xaxis: {\n            type: \"category\",\n            title: \"Tank Names\",\n        },\n    });\n}\nfunction PlotLoads(data, divElement, chartName) {\n    //print(CalculateBaseHeightInches(data))\n    var oilTrace = {\n        x: [],\n        y: [],\n        name: \"Oil\",\n        type: \"bar\",\n        marker: {\n            color: \"#008000\",\n        },\n        text: [],\n    };\n    var waterTrace = {\n        x: [],\n        y: [],\n        name: \"Water\",\n        type: \"bar\",\n        marker: {\n            color: \"#0000ff\",\n        },\n        text: [],\n    };\n    for (var _i = 0, data_3 = data; _i < data_3.length; _i++) {\n        var tankdata = data_3[_i];\n        if (tankdata.Type == \"OIL\") {\n            oilTrace.x.push(\"\".concat(tankdata.Name));\n            var barrels = CalculatePercentageFilled(tankdata) * tankdata.Capacity;\n            oilTrace.y.push(barrels);\n            oilTrace.text.push(\"\".concat(Math.round(barrels), \" Barrels, \\n \").concat(Math.floor(barrels / 180), \" Load(s)\"));\n        }\n        else if (tankdata.Type == \"WATER\") {\n            waterTrace.x.push(\"\".concat(tankdata.Name));\n            var barrels = CalculatePercentageFilled(tankdata) * tankdata.Capacity;\n            waterTrace.y.push(barrels);\n            waterTrace.text.push(\"\".concat(Math.round(barrels), \" Barrels, \\n \").concat(Math.floor(barrels / 180), \" Load(s)\"));\n        }\n    }\n    (0,_Plotly__WEBPACK_IMPORTED_MODULE_0__.newPlot)(divElement, [oilTrace, waterTrace], {\n        title: \"\".concat(chartName, \" Tank Barrels\"),\n        xaxis: {\n            type: \"category\",\n            title: \"Tank Names\",\n        },\n    });\n}\nfunction PlotData(data, divElement, chartName, graphType) {\n    if (graphType == \"Height\") {\n        PlotHeight(data, divElement, chartName);\n    }\n    else if (graphType == \"Percentage\") {\n        PlotPercentage(data, divElement, chartName);\n    }\n    else if (graphType == \"Loads\") {\n        PlotLoads(data, divElement, chartName);\n    }\n}\nfunction GetWellData(wellName) {\n    return __awaiter(this, void 0, void 0, function () {\n        var res, wellTanks;\n        return __generator(this, function (_a) {\n            switch (_a.label) {\n                case 0: return [4 /*yield*/, fetch(\"/getWellTankReadings?wellName=\".concat(encodeURIComponent(wellName)))];\n                case 1:\n                    res = _a.sent();\n                    return [4 /*yield*/, res.json()];\n                case 2:\n                    wellTanks = (_a.sent());\n                    console.log(wellTanks);\n                    return [2 /*return*/, wellTanks];\n            }\n        });\n    });\n}\n\n\n\n//# sourceURL=webpack://my-webpack-project/./src/Tools.ts?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   GetWellData: () => (/* binding */ GetWellData),
+/* harmony export */   PlotData: () => (/* binding */ PlotData)
+/* harmony export */ });
+/* harmony import */ var _Plotly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Plotly */ "./src/Plotly.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 
-/***/ }),
+var FONT_SIZE = 16;
+function CalculatePercentageFilled(tankdata) {
+    var barrelsFilled = tankdata.Capacity -
+        tankdata.Multiplier *
+            (tankdata.LatestReading.top_feet * 12 +
+                tankdata.LatestReading.top_inches);
+    return barrelsFilled / tankdata.Capacity;
+}
+function CalculateTotalHeightInches(tankdata) {
+    var topHeight = tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches;
+    var topHeightPercentage = 1 - CalculatePercentageFilled(tankdata);
+    return Math.round(topHeight / topHeightPercentage);
+}
+function CalculateBaseHeightInches(tankdata) {
+    return (CalculateTotalHeightInches(tankdata) -
+        (tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches));
+}
+function CalculateTopHeightInches(tankdata) {
+    return (tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches);
+}
+function InchesToHeightString(inches) {
+    var feet = Math.floor(inches / 12);
+    var inchesLeft = inches % 12;
+    if (feet && inches) {
+        return "".concat(feet, "' ").concat(inchesLeft, "\"");
+    }
+    else if (feet && !inches) {
+        return "".concat(feet, "'");
+    }
+    else if (!feet && inches) {
+        return "".concat(inches, "\"");
+    }
+}
+function PlotHeight(data, divElement, chartName) {
+    var baseTrace = {
+        x: [],
+        y: [],
+        name: "Base Height Oil",
+        type: "bar",
+        marker: {
+            color: "#008000",
+        },
+        text: [],
+        textfont: {
+            size: FONT_SIZE
+        }
+    };
+    var topTrace = {
+        x: [],
+        y: [],
+        name: "Top Height Oil",
+        type: "bar",
+        marker: {
+            color: "#79ad79",
+        },
+        text: [],
+        textfont: {
+            size: FONT_SIZE
+        }
+    };
+    var baseTraceWater = {
+        x: [],
+        y: [],
+        name: "Base Height Water",
+        type: "bar",
+        marker: {
+            color: "#0000ff",
+        },
+        text: [],
+        textfont: {
+            size: FONT_SIZE
+        }
+    };
+    var topTraceWater = {
+        x: [],
+        y: [],
+        name: "Top Height Water",
+        type: "bar",
+        marker: {
+            color: "#8585ff",
+        },
+        text: [],
+        textfont: {
+            size: FONT_SIZE
+        }
+    };
+    for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+        var tankdata = data_1[_i];
+        if (tankdata.Type == "OIL") {
+            baseTrace.x.push("".concat(tankdata.Name));
+            baseTrace.y.push(CalculateBaseHeightInches(tankdata) /
+                CalculateTotalHeightInches(tankdata));
+            baseTrace.text.push(InchesToHeightString(CalculateBaseHeightInches(tankdata)));
+            topTrace.x.push("".concat(tankdata.Name));
+            topTrace.y.push(CalculateTopHeightInches(tankdata) /
+                CalculateTotalHeightInches(tankdata));
+            topTrace.text.push(InchesToHeightString(CalculateTopHeightInches(tankdata)));
+        }
+        else if (tankdata.Type == "WATER") {
+            baseTraceWater.x.push("".concat(tankdata.Name));
+            baseTraceWater.y.push(CalculateBaseHeightInches(tankdata) /
+                CalculateTotalHeightInches(tankdata));
+            baseTraceWater.text.push(InchesToHeightString(CalculateBaseHeightInches(tankdata)));
+            topTraceWater.x.push("".concat(tankdata.Name));
+            topTraceWater.y.push(CalculateTopHeightInches(tankdata) /
+                CalculateTotalHeightInches(tankdata));
+            topTraceWater.text.push(InchesToHeightString(CalculateTopHeightInches(tankdata)));
+        }
+    }
+    (0,_Plotly__WEBPACK_IMPORTED_MODULE_0__.newPlot)(divElement, [baseTrace, topTrace, baseTraceWater, topTraceWater], {
+        barmode: "stack",
+        title: "".concat(chartName, " Tank Levels"),
+        xaxis: {
+            type: "category",
+            title: "Tank Names",
+        },
+    });
+}
+function PlotPercentage(data, divElement, chartName) {
+    var oilTrace = {
+        x: [],
+        y: [],
+        name: "Oil",
+        type: "bar",
+        marker: {
+            color: "#008000",
+        },
+        text: [],
+        textfont: {
+            size: FONT_SIZE
+        }
+    };
+    var waterTrace = {
+        x: [],
+        y: [],
+        name: "Water",
+        type: "bar",
+        marker: {
+            color: "#0000ff",
+        },
+        text: [],
+        textfont: {
+            size: FONT_SIZE
+        }
+    };
+    for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
+        var tankdata = data_2[_i];
+        if (tankdata.Type == "OIL") {
+            oilTrace.x.push("".concat(tankdata.Name));
+            oilTrace.y.push(CalculatePercentageFilled(tankdata));
+            oilTrace.text.push("".concat(Math.round(CalculatePercentageFilled(tankdata) * 100), "%"));
+        }
+        else if (tankdata.Type == "WATER") {
+            waterTrace.x.push("".concat(tankdata.Name));
+            waterTrace.y.push(CalculatePercentageFilled(tankdata));
+            waterTrace.text.push("".concat(Math.round(CalculatePercentageFilled(tankdata) * 100), "%"));
+        }
+    }
+    (0,_Plotly__WEBPACK_IMPORTED_MODULE_0__.newPlot)(divElement, [oilTrace, waterTrace], {
+        title: "".concat(chartName, " Tank Percentages"),
+        yaxis: {
+            range: [0, 1],
+            tickformat: ".0%",
+        },
+        xaxis: {
+            type: "category",
+            title: "Tank Names",
+        },
+    });
+}
+function PlotLoads(data, divElement, chartName) {
+    //print(CalculateBaseHeightInches(data))
+    var oilTrace = {
+        x: [],
+        y: [],
+        name: "Oil",
+        type: "bar",
+        marker: {
+            color: "#008000",
+        },
+        text: [],
+        textfont: {
+            size: FONT_SIZE
+        }
+    };
+    var waterTrace = {
+        x: [],
+        y: [],
+        name: "Water",
+        type: "bar",
+        marker: {
+            color: "#0000ff",
+        },
+        text: [],
+        textfont: {
+            size: FONT_SIZE
+        }
+    };
+    for (var _i = 0, data_3 = data; _i < data_3.length; _i++) {
+        var tankdata = data_3[_i];
+        if (tankdata.Type == "OIL") {
+            oilTrace.x.push("".concat(tankdata.Name));
+            var barrels = CalculatePercentageFilled(tankdata) * tankdata.Capacity;
+            oilTrace.y.push(barrels);
+            oilTrace.text.push("".concat(Math.round(barrels), " Barrels, \n ").concat(Math.floor(barrels / 180), " Load(s)"));
+        }
+        else if (tankdata.Type == "WATER") {
+            waterTrace.x.push("".concat(tankdata.Name));
+            var barrels = CalculatePercentageFilled(tankdata) * tankdata.Capacity;
+            waterTrace.y.push(barrels);
+            waterTrace.text.push("".concat(Math.round(barrels), " Barrels, \n ").concat(Math.floor(barrels / 180), " Load(s)"));
+        }
+    }
+    (0,_Plotly__WEBPACK_IMPORTED_MODULE_0__.newPlot)(divElement, [oilTrace, waterTrace], {
+        title: "".concat(chartName, " Tank Barrels"),
+        xaxis: {
+            type: "category",
+            title: "Tank Names",
+        },
+    });
+}
+function PlotData(data, divElement, chartName, graphType) {
+    if (graphType == "Height") {
+        PlotHeight(data, divElement, chartName);
+    }
+    else if (graphType == "Percentage") {
+        PlotPercentage(data, divElement, chartName);
+    }
+    else if (graphType == "Loads") {
+        PlotLoads(data, divElement, chartName);
+    }
+}
+function GetWellData(wellName) {
+    return __awaiter(this, void 0, void 0, function () {
+        var res, wellTanks;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch("/getWellTankReadings?wellName=".concat(encodeURIComponent(wellName)))];
+                case 1:
+                    res = _a.sent();
+                    return [4 /*yield*/, res.json()];
+                case 2:
+                    wellTanks = (_a.sent());
+                    return [2 /*return*/, wellTanks];
+            }
+        });
+    });
+}
 
-/***/ "./src/index.ts":
-/*!**********************!*\
-  !*** ./src/index.ts ***!
-  \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Tools__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Tools */ \"./src/Tools.ts\");\n\njQuery(function () {\n    $(\"#wellSelect\").select2();\n    $(\"#graphTypeSelect\").select2();\n    var wellSelect = document.getElementById(\"wellSelect\");\n    var graphTypeSelect = document.getElementById(\"graphTypeSelect\");\n    var graphDisplay = document.getElementById(\"graphDisplay\");\n    var loadingIcon = document.getElementById(\"loadingIcon\");\n    var CURRENT_DATA;\n    fetch(\"/getWells\")\n        .then(function (res) { return res.json(); })\n        .then(function (wellList) {\n        for (var _i = 0, wellList_1 = wellList; _i < wellList_1.length; _i++) {\n            var wellName = wellList_1[_i];\n            var el = document.createElement(\"option\");\n            el.value = wellName;\n            el.innerText = wellName;\n            wellSelect.appendChild(el);\n        }\n    });\n    $(\"#graphTypeSelect\").on(\"change\", function () {\n        var _a;\n        if (CURRENT_DATA) {\n            (_a = document.getElementsByClassName(\"plot-container\")[0]) === null || _a === void 0 ? void 0 : _a.remove();\n            loadingIcon.style.display = \"inline-block\";\n            (0,_Tools__WEBPACK_IMPORTED_MODULE_0__.PlotData)(CURRENT_DATA, graphDisplay, wellSelect.value, graphTypeSelect.value);\n            loadingIcon.style.display = \"none\";\n        }\n    });\n    $(\"#wellSelect\").on(\"change\", function () {\n        var _a;\n        (_a = document.getElementsByClassName(\"plot-container\")[0]) === null || _a === void 0 ? void 0 : _a.remove();\n        loadingIcon.style.display = \"inline-block\";\n        (0,_Tools__WEBPACK_IMPORTED_MODULE_0__.GetWellData)(wellSelect.value).then(function (wellData) {\n            CURRENT_DATA = wellData;\n            (0,_Tools__WEBPACK_IMPORTED_MODULE_0__.PlotData)(CURRENT_DATA, graphDisplay, wellSelect.value, graphTypeSelect.value);\n            loadingIcon.style.display = \"none\";\n        });\n    });\n});\n\n\n//# sourceURL=webpack://my-webpack-project/./src/index.ts?");
 
 /***/ })
 
@@ -96,11 +378,56 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Too
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.ts");
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Tools__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Tools */ "./src/Tools.ts");
+
+jQuery(function () {
+    $("#wellSelect").select2();
+    $("#graphTypeSelect").select2();
+    var wellSelect = document.getElementById("wellSelect");
+    var graphTypeSelect = document.getElementById("graphTypeSelect");
+    var graphDisplay = document.getElementById("graphDisplay");
+    var loadingIcon = document.getElementById("loadingIcon");
+    var CURRENT_DATA;
+    fetch("/getWells")
+        .then(function (res) { return res.json(); })
+        .then(function (wellList) {
+        for (var _i = 0, wellList_1 = wellList; _i < wellList_1.length; _i++) {
+            var wellName = wellList_1[_i];
+            var el = document.createElement("option");
+            el.value = wellName;
+            el.innerText = wellName;
+            wellSelect.appendChild(el);
+        }
+    });
+    $("#graphTypeSelect").on("change", function () {
+        var _a;
+        if (CURRENT_DATA) {
+            (_a = document.getElementsByClassName("plot-container")[0]) === null || _a === void 0 ? void 0 : _a.remove();
+            loadingIcon.style.display = "inline-block";
+            (0,_Tools__WEBPACK_IMPORTED_MODULE_0__.PlotData)(CURRENT_DATA, graphDisplay, wellSelect.value, graphTypeSelect.value);
+            loadingIcon.style.display = "none";
+        }
+    });
+    $("#wellSelect").on("change", function () {
+        var _a;
+        (_a = document.getElementsByClassName("plot-container")[0]) === null || _a === void 0 ? void 0 : _a.remove();
+        loadingIcon.style.display = "inline-block";
+        (0,_Tools__WEBPACK_IMPORTED_MODULE_0__.GetWellData)(wellSelect.value).then(function (wellData) {
+            CURRENT_DATA = wellData;
+            (0,_Tools__WEBPACK_IMPORTED_MODULE_0__.PlotData)(CURRENT_DATA, graphDisplay, wellSelect.value, graphTypeSelect.value);
+            loadingIcon.style.display = "none";
+        });
+    });
+});
+
+})();
+
 /******/ })()
 ;
