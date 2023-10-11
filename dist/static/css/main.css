@@ -33,7 +33,7 @@ body {
 #graphDisplay {
   background-color: rgba(0, 0, 0, 0.15);
   width: 80vw;
-  height: 500px;
+  height: 600px;
   margin: auto;
   border: 1px solid #ccc;
   display: flex;

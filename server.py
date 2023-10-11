@@ -4,7 +4,7 @@ import urllib.parse
 import time
 
 
-#caches tank data to reduce loading time. if the data was cached for more than
+#caches tank data to reduce loading time on the client. if the data was cached for more than 2 hours it will update
 cache = {}
 reading_cache = {}
 

@@ -223,16 +223,16 @@ function PlotLoads(
     if (tankdata.Type == "OIL") {
       (oilTrace.x as string[]).push(`${tankdata.Name}`);
       const barrels: number =
-        CalculateBaseHeightInches(tankdata) / tankdata.Multiplier;
+        CalculatePercentageFilled(tankdata) * tankdata.Capacity;
       (oilTrace.y as number[]).push(barrels);
-      (oilTrace.text as string[]).push(`${Math.round(barrels)} Barrels`);
+      (oilTrace.text as string[]).push(`${Math.round(barrels)} Barrels, \n ${Math.floor(barrels/180)} Load(s)`);
     } else if (tankdata.Type == "WATER") {
       (waterTrace.x as string[]).push(`${tankdata.Name}`);
       const barrels: number =
-        CalculateBaseHeightInches(tankdata) / tankdata.Multiplier;
+        CalculatePercentageFilled(tankdata) * tankdata.Capacity;
 
       (waterTrace.y as number[]).push(barrels);
-      (waterTrace.text as string[]).push(`${Math.round(barrels)} Barrels`);
+      (waterTrace.text as string[]).push(`${Math.round(barrels)} Barrels, \n ${Math.floor(barrels/180)} Load(s)`);
     }
   }
 
@@ -265,6 +265,7 @@ async function GetWellData(wellName: string): Promise<TankDataType[]> {
     `/getWellTankReadings?wellName=${encodeURIComponent(wellName)}`
   );
   const wellTanks = (await res.json()) as TankDataType[];
+  console.log(wellTanks)
   return wellTanks;
 }
 
