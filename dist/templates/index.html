@@ -10,8 +10,10 @@
     />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js" charset="utf-8"></script>
-
+    <script
+      src="https://cdn.plot.ly/plotly-2.26.0.min.js"
+      charset="utf-8"
+    ></script>
   </head>
 
   <body>
@@ -23,6 +25,16 @@
       <select id="wellSelect">
         <option value="">--Select a well--</option>
       </select>
+    </div>
+
+    <div id="filterOptions">
+      <div style="text-align: center;align-items: center;justify-content: center;">
+        <select id="graphTypeSelect" style="text-align: left!important;">
+          <option value="Height" selected>Height</option>
+          <option value="Percentage">Percentage</option>
+          <option value="Loads">Barrels</option>
+        </select>
+      </div>
     </div>
 
     <div id="graphDisplay">

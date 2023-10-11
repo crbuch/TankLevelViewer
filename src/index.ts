@@ -3,9 +3,23 @@ import { TankDataType } from "./Types";
 
 jQuery(() => {
   $("#wellSelect").select2();
+
+  $("#graphTypeSelect").select2();
+
   const wellSelect: HTMLSelectElement = document.getElementById(
     "wellSelect"
   ) as HTMLSelectElement;
+
+  const graphTypeSelect: HTMLSelectElement = document.getElementById(
+    "graphTypeSelect"
+  ) as HTMLSelectElement;
+  const graphDisplay = document.getElementById(
+    "graphDisplay"
+  ) as HTMLDivElement;
+
+  const loadingIcon = document.getElementById("loadingIcon") as HTMLDivElement;
+
+  let CURRENT_DATA: TankDataType[];
 
   fetch("/getWells")
     .then((res) => res.json())
@@ -18,21 +32,36 @@ jQuery(() => {
       }
     });
 
+  $("#graphTypeSelect").on("change", () => {
+    if (CURRENT_DATA) {
+      document.getElementsByClassName("plot-container")[0]?.remove();
+      loadingIcon.style.display = "inline-block";
+
+      PlotData(
+        CURRENT_DATA,
+        graphDisplay,
+        wellSelect.value,
+        graphTypeSelect.value
+      );
+      loadingIcon.style.display = "none";
+    }
+  });
+
   $("#wellSelect").on("change", () => {
     document.getElementsByClassName("plot-container")[0]?.remove();
 
-    const graphDisplay = document.getElementById(
-      "graphDisplay"
-    ) as HTMLDivElement;
-
-    const loadingIcon = document.getElementById(
-      "loadingIcon"
-    ) as HTMLDivElement;
     loadingIcon.style.display = "inline-block";
 
     GetWellData(wellSelect.value).then((wellData: TankDataType[]) => {
-      console.log(wellData);
-      PlotData(wellData, graphDisplay);
+      CURRENT_DATA = wellData;
+
+      PlotData(
+        CURRENT_DATA,
+        graphDisplay,
+        wellSelect.value,
+        graphTypeSelect.value
+      );
+
       loadingIcon.style.display = "none";
     });
   });
