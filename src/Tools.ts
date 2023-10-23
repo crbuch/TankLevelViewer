@@ -25,6 +25,7 @@ function CalculateBaseHeightInches(tankdata: TankDataType): number {
     (tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches)
   );
 }
+
 function CalculateTopHeightInches(tankdata: TankDataType): number {
   return (
     tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches
@@ -292,8 +293,7 @@ async function GetWellData(wellName: string): Promise<TankDataType[]> {
   const res = await fetch(
     `/getWellTankReadings?wellName=${encodeURIComponent(wellName)}`
   );
-  const wellTanks = (await res.json()) as TankDataType[];
-  return wellTanks;
+  return (await res.json()) as TankDataType[];
 }
 
 export { GetWellData, PlotData };
