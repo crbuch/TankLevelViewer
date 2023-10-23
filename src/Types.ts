@@ -1,4 +1,4 @@
-//defines the response from the api
+//defines the structure of the response from the api
 interface TankDataType {
   Capacity: number;
   Id: number;
