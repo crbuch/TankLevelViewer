@@ -217,7 +217,6 @@ function PlotLoads(
   divElement: HTMLDivElement,
   chartName: string
 ) {
-  //print(CalculateBaseHeightInches(data))
   const oilTrace: Data = {
     x: [],
     y: [],
@@ -267,7 +266,6 @@ function PlotLoads(
     xaxis: {
       type: "category",
       title: "Tank Names",
-  
     },
     
   });
@@ -292,8 +290,7 @@ async function GetWellData(wellName: string): Promise<TankDataType[]> {
   const res = await fetch(
     `/getWellTankReadings?wellName=${encodeURIComponent(wellName)}`
   );
-  const wellTanks = (await res.json()) as TankDataType[];
-  return wellTanks;
+  return (await res.json()) as TankDataType[];
 }
 
 export { GetWellData, PlotData };

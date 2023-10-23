@@ -240,7 +240,6 @@ function PlotPercentage(data, divElement, chartName) {
     });
 }
 function PlotLoads(data, divElement, chartName) {
-    //print(CalculateBaseHeightInches(data))
     var oilTrace = {
         x: [],
         y: [],
@@ -303,16 +302,14 @@ function PlotData(data, divElement, chartName, graphType) {
 }
 function GetWellData(wellName) {
     return __awaiter(this, void 0, void 0, function () {
-        var res, wellTanks;
+        var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, fetch("/getWellTankReadings?wellName=".concat(encodeURIComponent(wellName)))];
                 case 1:
                     res = _a.sent();
                     return [4 /*yield*/, res.json()];
-                case 2:
-                    wellTanks = (_a.sent());
-                    return [2 /*return*/, wellTanks];
+                case 2: return [2 /*return*/, (_a.sent())];
             }
         });
     });
