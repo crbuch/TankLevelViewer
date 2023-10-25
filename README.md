@@ -6,3 +6,5 @@ Next run "pip install -r requirements.txt" to install the prerequisites for the 
 Using live server or static hosting will not work since the local server provides live data from the api
 
 Make sure to copy the .env file into the directory
+
+There may be an error saying "Your connection is not private." This is because the SSL Certificate was self generated for development purposes.
