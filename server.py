@@ -19,8 +19,6 @@ app = Flask(__name__, template_folder="./dist/templates", static_folder="./dist/
 
 @app.route("/")
 def index():
-    if not request.is_secure:
-        print("Request not secure")
     return render_template("index.html")
 
 
@@ -33,13 +31,13 @@ def getWells():
 def getResponse(tankData):
     res = []
     for i in tankData["data"]:
-        res.append({})
-        res[-1]["Type"] = i["type"]
-        res[-1]["Multiplier"] = i["multiplier"]
-        res[-1]["Capacity"] = i["capacity"]
-        res[-1]["Name"] = i["name"]
-        res[-1]["Updated"] = i["updated_at"]
-        res[-1]["Id"] = i["id"]
+        entry = {}
+        entry["Type"] = i["type"]
+        entry["Multiplier"] = i["multiplier"]
+        entry["Capacity"] = i["capacity"]
+        entry["Name"] = i["name"]
+        entry["Updated"] = i["updated_at"]
+        entry["Id"] = i["id"]
         readings = api.getTankReadings(i["id"])["data"]
         readings.sort(key=lambda x: x["reading_time"])
         readings[-1] = {
@@ -49,7 +47,9 @@ def getResponse(tankData):
             "top_inches":readings[-1]["top_inches"],
             "updated_at":readings[-1]["updated_at"],
         }
-        res[-1]["LatestReading"] = readings[-1]
+        entry["LatestReading"] = readings[-1]
+        res.append(entry)
+        
     return res
 
 
