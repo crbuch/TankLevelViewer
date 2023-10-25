@@ -240,7 +240,6 @@ function PlotPercentage(data, divElement, chartName) {
     });
 }
 function PlotLoads(data, divElement, chartName) {
-    //print(CalculateBaseHeightInches(data))
     var oilTrace = {
         x: [],
         y: [],

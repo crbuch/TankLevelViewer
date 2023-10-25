@@ -218,7 +218,6 @@ function PlotLoads(
   divElement: HTMLDivElement,
   chartName: string
 ) {
-  //print(CalculateBaseHeightInches(data))
   const oilTrace: Data = {
     x: [],
     y: [],
@@ -268,7 +267,6 @@ function PlotLoads(
     xaxis: {
       type: "category",
       title: "Tank Names",
-  
     },
     
   });
