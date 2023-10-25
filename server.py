@@ -19,6 +19,8 @@ app = Flask(__name__, template_folder="./dist/templates", static_folder="./dist/
 
 @app.route("/")
 def index():
+    if not request.is_secure:
+        print("Request not secure")
     return render_template("index.html")
 
 
