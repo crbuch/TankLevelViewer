@@ -38,8 +38,7 @@ def getReadings(wellTanks):
         entry["Name"] = i["name"]
         entry["Updated"] = i["updated_at"]
         entry["Id"] = i["id"]
-        readings = api.getTankReadings(i["id"])
-        entry["LatestReading"] = readings[-1]
+        entry["LatestReading"] = api.getLatestReading(i["id"])
         res.append(entry)
         
     return res

@@ -49,7 +49,7 @@ class TankLevelAPI:
         return asyncio.create_task(self.getTankReadings(tankId))
 
 
-    def getTankReadings(self, tankId:str)->dict:
+    def getLatestReading(self, tankId:str)->dict:
         readings = requests.get(f"https://api.iwell.info/v1/tanks/{tankId}/readings", headers={"Authorization": f"Bearer {self.IWELL_AUTH_TOKEN}"}).json()["data"]
         readings.sort(key=lambda x: x["reading_time"])
         readings[-1] = {
@@ -59,7 +59,7 @@ class TankLevelAPI:
             "top_inches":readings[-1]["top_inches"],
             "updated_at":readings[-1]["updated_at"],
         }
-        return readings
+        return readings[-1]
 
 
 if __name__ == "__main__":
