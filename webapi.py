@@ -50,8 +50,16 @@ class TankLevelAPI:
 
 
     def getTankReadings(self, tankId:str)->dict:
-        res = requests.get(f"https://api.iwell.info/v1/tanks/{tankId}/readings", headers={"Authorization": f"Bearer {self.IWELL_AUTH_TOKEN}"}).json()
-        return res
+        readings = requests.get(f"https://api.iwell.info/v1/tanks/{tankId}/readings", headers={"Authorization": f"Bearer {self.IWELL_AUTH_TOKEN}"}).json()["data"]
+        readings.sort(key=lambda x: x["reading_time"])
+        readings[-1] = {
+            "Id":readings[-1]["id"],
+            "reading_time":readings[-1]["reading_time"],
+            "top_feet":readings[-1]["top_feet"],
+            "top_inches":readings[-1]["top_inches"],
+            "updated_at":readings[-1]["updated_at"],
+        }
+        return readings
 
 
 if __name__ == "__main__":

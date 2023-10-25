@@ -28,9 +28,9 @@ def getWells():
 
 
 
-def getResponse(tankData):
+def getReadings(wellTanks):
     res = []
-    for i in tankData["data"]:
+    for i in wellTanks["data"]:
         entry = {}
         entry["Type"] = i["type"]
         entry["Multiplier"] = i["multiplier"]
@@ -38,15 +38,7 @@ def getResponse(tankData):
         entry["Name"] = i["name"]
         entry["Updated"] = i["updated_at"]
         entry["Id"] = i["id"]
-        readings = api.getTankReadings(i["id"])["data"]
-        readings.sort(key=lambda x: x["reading_time"])
-        readings[-1] = {
-            "Id":readings[-1]["id"],
-            "reading_time":readings[-1]["reading_time"],
-            "top_feet":readings[-1]["top_feet"],
-            "top_inches":readings[-1]["top_inches"],
-            "updated_at":readings[-1]["updated_at"],
-        }
+        readings = api.getTankReadings(i["id"])
         entry["LatestReading"] = readings[-1]
         res.append(entry)
         
@@ -68,13 +60,12 @@ def getWellTankReadings():
             cache[wellId] = {"TimeStamp":time.time(), "Data":api.getWellTankData(wellId)}
 
 
-    tankData = cache[wellId]["Data"]
 
     if not (wellId in reading_cache):
-        reading_cache[wellId] = {"TimeStamp":time.time(), "Data":getResponse(tankData)}
+        reading_cache[wellId] = {"TimeStamp":time.time(), "Data":getReadings(cache[wellId]["Data"])}
     else:
         if time.time()-reading_cache[wellId]["TimeStamp"]>UPDATE_SECONDS:
-            reading_cache[wellId] = {"TimeStamp":time.time(), "Data":getResponse(tankData)}
+            reading_cache[wellId] = {"TimeStamp":time.time(), "Data":getReadings(cache[wellId]["Data"])}
 
 
     return reading_cache[wellId]["Data"]
