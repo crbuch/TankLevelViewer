@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 import os 
 from dotenv import load_dotenv
 import random
-
-
+import asyncio
+from typing import Callable
 
 class TankLevelAPI:
     def __init__(self, daysSince):
@@ -44,6 +44,10 @@ class TankLevelAPI:
         res = requests.get(f"https://api.iwell.info/v1/wells/{wellId}/tanks?since={self.unix_timestamp}", headers={"Authorization": f"Bearer {self.IWELL_AUTH_TOKEN}"}).json()
         
         return res
+    
+    def getTankReadingsAsync(self, tankId:str)->asyncio.Task:
+        return asyncio.create_task(self.getTankReadings(tankId))
+
 
     def getTankReadings(self, tankId:str)->dict:
         res = requests.get(f"https://api.iwell.info/v1/tanks/{tankId}/readings", headers={"Authorization": f"Bearer {self.IWELL_AUTH_TOKEN}"}).json()
