@@ -75,7 +75,7 @@ function CalculatePercentageFilled(tankdata) {
         tankdata.Multiplier *
             (tankdata.LatestReading.top_feet * 12 +
                 tankdata.LatestReading.top_inches);
-    return barrelsFilled / tankdata.Capacity;
+    return 1 - (barrelsFilled / tankdata.Capacity);
 }
 function CalculateTotalHeightInches(tankdata) {
     var topHeight = tankdata.LatestReading.top_feet * 12 + tankdata.LatestReading.top_inches;

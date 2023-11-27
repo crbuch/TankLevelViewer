@@ -28,6 +28,7 @@ def getWells():
 
 
 
+
 def getReadings(wellTanks):
     res = []
     for i in wellTanks["data"]:
@@ -57,8 +58,6 @@ def getWellTankReadings():
         #if data was cached for longer than 2 hours (7200 seconds) get new data from iwell api
         if time.time()-cache[wellId]["TimeStamp"]>UPDATE_SECONDS:
             cache[wellId] = {"TimeStamp":time.time(), "Data":api.getWellTankData(wellId)}
-
-
 
     if not (wellId in reading_cache):
         reading_cache[wellId] = {"TimeStamp":time.time(), "Data":getReadings(cache[wellId]["Data"])}

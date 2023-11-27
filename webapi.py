@@ -40,6 +40,9 @@ class TankLevelAPI:
     def getWellID(self, wellName:str)->str:
         return self.All_Wells[wellName]
     
+    def getUsers(self):
+        return requests.get(f"https://api.iwell.info/v1/users", headers={"Authorization": f"Bearer {self.IWELL_AUTH_TOKEN}"}).json()
+    
     def getWellTankData(self, wellId:str)->list:
         res = requests.get(f"https://api.iwell.info/v1/wells/{wellId}/tanks?since={self.unix_timestamp}", headers={"Authorization": f"Bearer {self.IWELL_AUTH_TOKEN}"}).json()
         
