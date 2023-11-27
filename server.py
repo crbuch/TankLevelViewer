@@ -27,8 +27,6 @@ def getWells():
     return api.listWells()
 
 
-
-
 def getReadings(wellTanks):
     res = []
     for i in wellTanks["data"]:
