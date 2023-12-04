@@ -4,19 +4,18 @@ import os
 from dotenv import load_dotenv
 import random
 import asyncio
-from typing import Callable
 
 class TankLevelAPI:
     def __init__(self, daysSince):
-        self.IWELL_AUTH_TOKEN = self.getIWellAccessToken()
+        self.IWELL_AUTH_TOKEN = self.__getIWellAccessToken()
         self.unix_timestamp = str(int((datetime.now()-timedelta(days=daysSince)).timestamp()))
-        self.All_Wells = {}
+        self.__All_Wells = {}
         wellData = requests.get(f"https://api.iwell.info/v1/wells?since={self.unix_timestamp}", headers={"Authorization": f"Bearer {self.IWELL_AUTH_TOKEN}"}).json()["data"]
         for i in wellData:
-            self.All_Wells[i["name"]] = i["id"]
+            self.__All_Wells[i["name"]] = i["id"]
 
-
-    def getIWellAccessToken(self):
+    
+    def __getIWellAccessToken(self):
         if not os.path.exists("./.env"):
             raise FileNotFoundError(".env file not found")
         load_dotenv()
@@ -35,10 +34,10 @@ class TankLevelAPI:
 
 
     def listWells(self) -> list:
-        return list(self.All_Wells.keys())
+        return list(self.__All_Wells.keys())
     
     def getWellID(self, wellName:str)->str:
-        return self.All_Wells[wellName]
+        return self.__All_Wells[wellName]
     
     def getUsers(self):
         return requests.get(f"https://api.iwell.info/v1/users", headers={"Authorization": f"Bearer {self.IWELL_AUTH_TOKEN}"}).json()
